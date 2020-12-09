@@ -1,0 +1,499 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html lang="en"><head><script data-ezscrex='false' data-cfasync='false' data-pagespeed-no-defer>var __ez=__ez||{};__ez.stms=Date.now();__ez.evt={};__ez.script={};__ez.ck=__ez.ck||{};__ez.template={};__ez.template.isOrig=false;__ez.queue=(function(){var count=0,incr=0,items=[],timeDelayFired=false,hpItems=[],lpItems=[],allowLoad=true;var obj={func:function(name,funcName,parameters,isBlock,blockedBy,deleteWhenComplete,proceedIfError){var self=this;this.name=name;this.funcName=funcName;this.parameters=parameters===null?null:(parameters instanceof Array)?parameters:[parameters];this.isBlock=isBlock;this.blockedBy=blockedBy;this.deleteWhenComplete=deleteWhenComplete;this.isError=false;this.isComplete=false;this.isInitialized=false;this.proceedIfError=proceedIfError;this.isTimeDelay=false;this.process=function(){log("... func = "+name);self.isInitialized=true;self.isComplete=true;log("... func.apply: "+name);var funcs=self.funcName.split('.');var func=null;if(funcs.length>3){}else if(funcs.length===3){func=window[funcs[0]][funcs[1]][funcs[2]];}else if(funcs.length===2){func=window[funcs[0]][funcs[1]];}else{func=window[self.funcName];}
+if(typeof func!=='undefined'&&func!==null){func.apply(null,this.parameters);}
+if(self.deleteWhenComplete===true)delete items[name];if(self.isBlock===true){log("----- F'D: "+self.name);processAll();}}},file:function(name,path,isBlock,blockedBy,async,defer,proceedIfError){var self=this;this.name=name;this.path=path;this.async=async;this.defer=defer;this.isBlock=isBlock;this.blockedBy=blockedBy;this.isInitialized=false;this.isError=false;this.isComplete=false;this.proceedIfError=proceedIfError;this.isTimeDelay=false;this.process=function(){self.isInitialized=true;log("... file = "+name);var scr=document.createElement('script');scr.src=path;if(async===true)scr.async=true;else if(defer===true)scr.defer=true;scr.onerror=function(){log("----- ERR'D: "+self.name);self.isError=true;if(self.isBlock===true){processAll();}};scr.onreadystatechange=scr.onload=function(){var state=scr.readyState;log("----- F'D: "+self.name);if((!state||/loaded|complete/.test(state))){self.isComplete=true;if(self.isBlock===true){processAll();}}};document.getElementsByTagName('head')[0].appendChild(scr);}}};function init(){window.addEventListener("load",function(){setTimeout(function(){timeDelayFired=true;log('TDELAY -----');processAll();},5000);},false);}
+function addFile(name,path,isBlock,blockedBy,async,defer,proceedIfError,priority){var item=new obj.file(name,path,isBlock,blockedBy,async,defer,proceedIfError);if(priority===true){hpItems[name]=item}else{lpItems[name]=item}
+items[name]=item;checkIfBlocked(item);}
+function setallowLoad(settobool){allowLoad=settobool}
+function addFunc(name,func,parameters,isBlock,blockedBy,autoInc,deleteWhenComplete,proceedIfError,priority){if(autoInc===true)name=name+"_"+incr++;var item=new obj.func(name,func,parameters,isBlock,blockedBy,deleteWhenComplete,proceedIfError);if(priority===true){hpItems[name]=item}else{lpItems[name]=item}
+items[name]=item;checkIfBlocked(item);}
+function addTimeDelayFile(name,path){var item=new obj.file(name,path,false,[],false,false,true);item.isTimeDelay=true;log(name+' ... '+' FILE! TDELAY');lpItems[name]=item;items[name]=item;checkIfBlocked(item);}
+function addTimeDelayFunc(name,func,parameters){var item=new obj.func(name,func,parameters,false,[],true,true);item.isTimeDelay=true;log(name+' ... '+' FUNCTION! TDELAY');lpItems[name]=item;items[name]=item;checkIfBlocked(item);}
+function checkIfBlocked(item){if(isBlocked(item)===true||allowLoad==false)return;item.process();}
+function isBlocked(item){if(item.isTimeDelay===true&&timeDelayFired===false){log(item.name+" blocked = TIME DELAY!");return true;}
+if(item.blockedBy instanceof Array){for(var i=0;i<item.blockedBy.length;i++){var block=item.blockedBy[i];if(items.hasOwnProperty(block)===false){log(item.name+" blocked = "+block);return true;}else if(item.proceedIfError===true&&items[block].isError===true){return false;}else if(items[block].isComplete===false){log(item.name+" blocked = "+block);return true;}}}
+return false;}
+function log(msg){var href=window.location.href;var reg=new RegExp('[?&]ezq=([^&#]*)','i');var string=reg.exec(href);var res=string?string[1]:null;if(res==="1")console.debug(msg);}
+function processAll(){count++;if(count>200)return;log("let's go");processItems(hpItems);processItems(lpItems);}
+function processItems(list){for(var i in list){if(list.hasOwnProperty(i)===false)continue;var item=list[i];if(item.isComplete===true||isBlocked(item)||item.isInitialized===true||item.isError===true){if(item.isError===true){log(item.name+': error')}else if(item.isComplete===true){log(item.name+': complete already')}else if(item.isInitialized===true){log(item.name+': initialized already')}}else{item.process();}}}
+init();return{addFile:addFile,addDelayFile:addTimeDelayFile,addFunc:addFunc,addDelayFunc:addTimeDelayFunc,items:items,processAll:processAll,setallowLoad:setallowLoad};})();__ez.evt.add=function(e,t,n){e.addEventListener?e.addEventListener(t,n,!1):e.attachEvent?e.attachEvent("on"+t,n):e["on"+t]=n()},__ez.evt.remove=function(e,t,n){e.removeEventListener?e.removeEventListener(t,n,!1):e.detachEvent?e.detachEvent("on"+t,n):delete e["on"+t]};__ez.script.add=function(e){var t=document.createElement("script");t.src=e,t.async=!0,t.type="text/javascript",document.getElementsByTagName("head")[0].appendChild(t)};__ez.queue.addFile('/detroitchicago/boise.js', '/detroitchicago/boise.js?gcb=191-5&cb=1', false, [], true, false, true, false);</script>
+<script type="text/javascript">(function(){function storageAvailable(type){var storage;try{storage=window[type];var x='__storage_test__';storage.setItem(x,x);storage.removeItem(x);return true;}
+catch(e){return e instanceof DOMException&&(e.code===22||e.code===1014||e.name==='QuotaExceededError'||e.name==='NS_ERROR_DOM_QUOTA_REACHED')&&(storage&&storage.length!==0);}}
+function remove_ama_config(){if(storageAvailable('localStorage')){localStorage.removeItem("google_ama_config");}}
+remove_ama_config()})()</script>
+<script data-ezscrex="false" data-cfasync="false">__ez.ssaf=[];__ez.sswp=4;__ez.ssv=3667;__ez.sshsdef=false;</script>
+<script data-ezscrex="false" data-cfasync="false">(function(){if("function"===typeof window.CustomEvent)return!1;window.CustomEvent=function(c,a){a=a||{bubbles:!1,cancelable:!1,detail:null};var b=document.createEvent("CustomEvent");b.initCustomEvent(c,a.bubbles,a.cancelable,a.detail);return b}})();</script><script data-ezscrex="false" data-cfasync="false">__ez.queue.addFile('/detroitchicago/tulsa.js', '/detroitchicago/tulsa.js?gcb=191-5&cb=5', false, [], true, false, true, false);</script>
+<script type="text/javascript">var ezoicTestActive = true</script>
+<script data-ezscrex="false" type="text/javascript" data-cfasync="false">var _ezaq = {"ad_cache_level":0,"ad_count_adjustment":0,"ad_lazyload_version":2,"ad_location_ids":"","ad_transform_level":0,"adx_ad_count":0,"bidder_method":1,"bidder_version":3,"city":"Tijuana","country":"MX","days_since_last_visit":-1,"display_ad_count":0,"domain_id":413,"ds_adsize_opt_id":-1,"engaged_time_visit":0,"ezcache_level":0,"ezcache_skip_code":0,"forensiq_score":-1,"form_factor_id":1,"framework_id":1,"has_bad_image":0,"has_bad_words":0,"iab_category":"","iab_category_0":"132","iab_category_1":"148","is_from_recommended_pages":false,"is_return_visitor":false,"is_sitespeed":1,"last_page_load":"","last_pageview_id":"","lt_cache_level":1,"max_ads":0,"metro_code":0,"optimization_version":1,"page_ad_positions":"","page_view_count":0,"page_view_id":"bc4a1f66-dfe8-4a69-514a-5684eebd7284","position_selection_id":1,"postal_code":"22126","pv_event_count":0,"response_time_orig":5296,"serverid":"34.216.32.13:13598","state":"BCN","sub_page_ad_positions":"","t_epoch":1607251268,"template_id":30,"time_on_site_visit":0,"url":"https://www.learning-styles-online.com/inventory/login.php","user_id":0,"weather_precipitation":0,"weather_summary":"","weather_temperature":0,"word_count":182,"worst_bad_word_level":0};var _ezim_d = {};var _ezat = {"domain_id":413,"form_factor_id":1,"framework_id":1,"pageview_date":"2020-12-06","pageview_id":"bc4a1f66-dfe8-4a69-514a-5684eebd7284","template_id":30,"url":"https://www.learning-styles-online.com/inventory/login.php","visit_uuid":"9a72a540-1e1a-4fc5-5be3-45c68260a81d"};</script><script data-ezscrex='false' data-pagespeed-no-defer data-cfasync='false' type="text/javascript">__ez.queue.addFile('banger.js', '/porpoiseant/banger.js?cb=191-5&bv=92&v=35&PageSpeed=off', true, [], true, false, false, true);</script>
+<script data-ezscrex='false' data-cfasync='false' data-pagespeed-no-defer>__ez.dot={};__ez.queue.addFile('/detroitchicago/memphis.js', '/detroitchicago/memphis.js?gcb=191-5&cb=2', false, [], true, false, true, false);__ez.queue.addFile('/detroitchicago/minneapolis.js', '/detroitchicago/minneapolis.js?gcb=191-5&cb=1', false, [], true, false, true, false);__ez.vep=(function(){var pixels=[],pxURL="/detroitchicago/grapefruit.gif";function AddPixel(vID,pixelData){if(__ez.dot.isDefined(vID)&&__ez.dot.isValid(pixelData)){pixels.push({type:'video',video_impression_id:vID,domain_id:__ez.dot.getDID(),t_epoch:__ez.dot.getEpoch(0),data:__ez.dot.dataToStr(pixelData)});}}
+function Fire(){if(typeof document.visibilityState!=='undefined'&&document.visibilityState==="prerender"){return;}
+if(__ez.dot.isDefined(pixels)&&pixels.length>0){while(pixels.length>0){var j=5;if(j>pixels.length){j=pixels.length;}
+var pushPixels=pixels.splice(0,j);(new Image()).src=__ez.dot.getURL(pxURL)+"?orig="+(__ez.template.isOrig===true?1:0)+"&v="+btoa(JSON.stringify(pushPixels));}}
+pixels=[];}
+return{Add:AddPixel,Fire:Fire};})();</script><script data-ezscrex='false' data-cfasync='false' data-pagespeed-no-defer>__ez.pel=(function(){var pixels=[],pxURL="/porpoiseant/army.gif";function AddAndFirePixel(adSlot,pixelData){AddPixel(adSlot,pixelData,0,0,0,0,0);Fire();}
+function AddAndFireOrigPixel(adSlot,pixelData){AddPixel(adSlot,pixelData,0,0,0,0,0,true);Fire();}
+function GetCurrentPixels(){return pixels;}
+function AddPixel(adSlot,pixelData,revenue,est_revenue,bid_floor_filled,bid_floor_prev,stat_source_id,isOrig){if(!__ez.dot.isDefined(adSlot)||__ez.dot.isAnyDefined(adSlot.getSlotElementId,adSlot.ElementId)==false){return;}
+var ad_position_id=parseInt(__ez.dot.getTargeting(adSlot,'ap'));var impId=__ez.dot.getSlotIID(adSlot),adUnit=__ez.dot.getAdUnit(adSlot,isOrig);var compId=parseInt(__ez.dot.getTargeting(adSlot,"compid"));var lineItemId=0;var creativeId=0;var ezimData=getEzimData(adSlot);if(typeof ezimData=='object'){if(ezimData.creative_id!==undefined){creativeId=ezimData.creative_id;}
+if(ezimData.line_item_id!==undefined){lineItemId=ezimData.line_item_id;}}
+if(__ez.dot.isDefined(impId,adUnit)&&__ez.dot.isValid(pixelData)){pixels.push({type:"impression",impression_id:impId,domain_id:__ez.dot.getDID(),unit:adUnit,t_epoch:__ez.dot.getEpoch(0),revenue:revenue,est_revenue:est_revenue,ad_position:ad_position_id,ad_size:"",bid_floor_filled:bid_floor_filled,bid_floor_prev:bid_floor_prev,stat_source_id:stat_source_id,country_code:__ez.dot.getCC(),pageview_id:__ez.dot.getPageviewId(),comp_id:compId,line_item_id:lineItemId,creative_id:creativeId,data:__ez.dot.dataToStr(pixelData),is_orig:isOrig||__ez.template.isOrig,});}}
+function AddPixelById(impFullId,pixelData,isOrig){var vals=impFullId.split('/');if(__ez.dot.isDefined(impFullId)&&vals.length===3&&__ez.dot.isValid(pixelData)){var adUnit=vals[0],impId=vals[2];pixels.push({type:"impression",impression_id:impId,domain_id:__ez.dot.getDID(),unit:adUnit,t_epoch:__ez.dot.getEpoch(0),pageview_id:__ez.dot.getPageviewId(),data:__ez.dot.dataToStr(pixelData),is_orig:isOrig||__ez.template.isOrig});}}
+function Fire(){if(typeof document.visibilityState!=='undefined'&&document.visibilityState==="prerender")return;if(__ez.dot.isDefined(pixels)&&pixels.length>0){var allPixels=[pixels.filter(function(pixel){return pixel.is_orig}),pixels.filter(function(pixel){return!pixel.is_orig})];allPixels.forEach(function(pixels){while(pixels.length>0){var isOrig=pixels[0].is_orig||false;var j=5;if(j>pixels.length){j=pixels.length;}
+var pushPixels=pixels.splice(0,j);var pixelURL=__ez.dot.getURL(pxURL)+"?orig="+(isOrig===true?1:0)+"&sts="+btoa(JSON.stringify(pushPixels));if(typeof window.isAmp!=='undefined'&&isAmp&&typeof window._ezaq!=='undefined'&&_ezaq.hasOwnProperty("domain_id")){pixelURL+="&visit_uuid="+_ezaq['visit_uuid'];}
+(new Image()).src=pixelURL;}})}
+pixels=[];}
+function getEzimData(adSlot){if(typeof _ezim_d=="undefined"){return false}
+var adUnitName=__ez.dot.getAdUnitPath(adSlot).split('/').pop();if(typeof _ezim_d==='object'&&_ezim_d.hasOwnProperty(adUnitName)){return _ezim_d[adUnitName];}
+for(var ezimKey in _ezim_d){if(ezimKey.split('/').pop()===adUnitName){return _ezim_d[ezimKey];}}
+return false;}
+return{Add:AddPixel,AddAndFire:AddAndFirePixel,AddAndFireOrig:AddAndFireOrigPixel,AddById:AddPixelById,Fire:Fire,GetPixels:GetCurrentPixels,};})();__ez.queue.addFile('/detroitchicago/raleigh.js', '/detroitchicago/raleigh.js?gcb=191-5&cb=2', false, [], true, false, true, false);__ez.queue.addFile('/detroitchicago/tampa.js', '/detroitchicago/tampa.js?gcb=191-5&cb=1', false, [], true, false, true, false);</script>
+<script data-ezscrex="false" data-pagespeed-no-defer data-cfasync='false' type="text/javascript">__ez.queue.addFile('rochester.js', '/detroitchicago/rochester.js?cb=191-5&v=9', false, [], true, false, true, true);</script><style>
+input.gsc-search-button{background-color:#4d90fe}.gsc-input-box{background-color:#fff}input.gsc-search-button{background-color:#4d90fe}.gsc-input-box{background-color:#fff}.gsc-control{width:300px}.gsc-control div{position:static}.gsc-control-cse,.gsc-control-cse.gsc-table-result{width:100%;font-family:Arial,sans-serif;font-size:13px}.gsc-control-cse div{position:static}form.gsc-search-box{font-size:13px;width:100%;margin:0 0 4px}table.gsc-search-box{border-style:none;border-width:0;border-spacing:0 0;width:100%;margin-bottom:2px}table.gsc-search-box td{vertical-align:middle}table.gsc-search-box td.gsc-input{padding-right:12px}td.gsc-search-button{width:1%}td.gsc-clear-button{width:14px}input.gsc-search-button{margin-left:2px}div.gsc-clear-button{display:inline;text-align:right;margin-left:4px;margin-right:4px;padding-left:10px;background-repeat:no-repeat;background-position:center center;background-image:url(//www.google.com/uds/css/clear.gif);cursor:pointer}.gsc-search-box-tools.gsc-clear-button{display:none}.gsc-overflow-hidden{overflow:hidden}input.gsc-input{padding:1px 6px;border:1px solid#DDD;width:99%}html>body.gsc-inline-block{display:-moz-inline-box;display:inline-block}.gsc-inline-block{position:relative;display:inline-block}*html.gsc-inline-block{display:inline}:first-child+html.gsc-inline-block{display:inline}.cse.gsc-control-cse,.gsc-control-cse{padding:1em;width:auto}.cse.gsc-control-wrapper-cse,.gsc-control-wrapper-cse{width:100%}.cse.gsc-branding,.gsc-branding{display:none}.cse.gsc-control-cse,.gsc-control-cse{background-color:#fff;border:1px solid#fff}.cse.gsc-control-cse:after,.gsc-control-cse:after{content:;display:block;height:0;clear:both;visibility:hidden}table.gsc-search-box td.gsc-input{padding-right:24px}.gsc-search-box-tools.gsc-search-box.gsc-input{padding-right:12px}input.gsc-input{font-size:16px;padding:4px 9px;border:1px solid#D9D9D9;width:99%}.gsc-input::-ms-clear{display:none;height:0;width:0}.gsc-input-box{border:1px solid#D9D9D9;background:#fff;height:25px}.gsc-search-box.gsc-input>input:hover,.gsc-input-box-hover{border:1px solid#b9b9b9;border-top-color:#a0a0a0;-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.1);box-shadow:inset 0 1px 2px rgba(0,0,0,.1);outline:none}.gsc-search-box.gsc-input>input:focus,.gsc-input-box-focus{border:1px solid#4d90fe;-moz-box-shadow:inset 0 1px 2px rgba(0,0,0,.3);-webkit-box-shadow:inset 0 1px 2px rgba(0,0,0,.3);box-shadow:inset 0 1px 2px rgba(0,0,0,.3);outline:none}.cse input.gsc-search-button,input.gsc-search-button{font-family:inherit;font-size:11px;font-weight:700;color:#fff;padding:0 8px;height:29px;min-width:54px;border:1px solid#666666;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;border-color:#3079ed;background-color:#4d90fe;background-image:-webkit-gradient(linear,left top,left bottom,from(#4d90fe),to(#4787ed));background-image:-webkit-linear-gradient(top,#4d90fe,#4787ed);background-image:-moz-linear-gradient(top,#4d90fe,#4787ed);background-image:-ms-linear-gradient(top,#4d90fe,#4787ed);background-image:-o-linear-gradient(top,#4d90fe,#4787ed);background-image:linear-gradient(top,#4d90fe,#4787ed);filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#4d90fe',EndColorStr='#4787ed')}.cse input.gsc-search-button:hover,input.gsc-search-button:hover{border-color:#2f5bb7;background-color:#357ae8;background-image:-webkit-gradient(linear,left top,left bottom,from(#4d90fe),to(#357ae8));background-image:-webkit-linear-gradient(top,#4d90fe,#357ae8);background-image:-moz-linear-gradient(top,#4d90fe,#357ae8);background-image:-ms-linear-gradient(top,#4d90fe,#357ae8);background-image:-o-linear-gradient(top,#4d90fe,#357ae8);background-image:linear-gradient(top,#4d90fe,#357ae8);filter:progid:DXImageTransform.Microsoft.gradient(startColorStr='#4d90fe',EndColorStr='#357ae8')}.cse input.gsc-search-button:focus,input.gsc-search-button:focus{box-shadow:inset 0 0 0 1px rgba(255,255,255,0.5);-webkit-box-shadow:inset 0 0 0 1px rgba(255,255,255,0.5);-moz-box-shadow:inset 0 0 0 1px rgba(255,255,255,0.5)}.cse.gsc-search-button input.gsc-search-button-v2,input.gsc-search-button-v2{width:13px;height:13px;padding:6px 27px;min-width:13px;margin-top:2px}
+.gsc-control-cse{padding:0!important;border:0!important}#ezoic-content .gs-web-image-box-landscape img.gs-image{max-height:40px}.cse .gsc-branding,.gsc-branding{display:none!important}div.gsc-control-cse{background-color:transparent!important;border:0!important}
+</style><script data-ezscrex="false" data-pagespeed-no-defer data-cfasync="false" type="text/javascript">__ez.queue.addFile('jass.head.js', '//www.learning-styles-online.com/jass/jass.head.js?cb=85', true, [], true, false, false, false);</script><script data-ezscrex="false" type="text/javascript">
+    var ezoTemplate = '/article/grayscale';
+
+    if (typeof ezouid == 'undefined') {
+        var ezouid = '39094803';
+    }
+
+    var ezoFormfactor = '1';
+
+    if (typeof ezpaq == "undefined") {
+        var ezpaq = "-";
+    }
+
+    ezo_elements_to_check = Array();
+
+    //minified table_resize_js.txt - http://gpbmike.github.io/refresh-sf/
+function ez_console_log(a){}function ez_get_widest_cells(a){var b=0,c=0,d=new Array;return $ezJQuery("td,th",a).each(function(){"break-all"!=$ezJQuery(this).css("word-break")&&"break-word"!=$ezJQuery(this).css("word-break")&&($ezJQuery(this).width()>b&&(b=$ezJQuery(this).width(),c=0,d=new Array),$ezJQuery(this).width()==b&&($ezJQuery(this).data("ez_lpw")>c&&(c=$ezJQuery(this).data("ez_lpw"),d=new Array),$ezJQuery(this).data("ez_lpw")==c&&c>10&&d.push(this)))}),d}function ez_scale_font(a,b,c){$ezJQuery(a).find("*").addBack().each(function(){var a=$ezJQuery(this).data("ez-ofs")-b;a>=c&&$ezJQuery(this).css("font-size",a)})}function ez_get_min_font(a){var b=16;return $ezJQuery("*",a).each(function(){parseInt($ezJQuery(this).css("font-size"))<b&&(b=parseInt($ezJQuery(this).css("font-size")))}),b}function ez_get_max_font(a){var b=10;return $ezJQuery("*",a).each(function(){parseInt($ezJQuery(this).css("font-size"))>b&&(b=parseInt($ezJQuery(this).css("font-size")))}),b}function ez_get_max_padding(a){var b=0;return $ezJQuery("td",a).each(function(){parseInt($ezJQuery(this).css("padding-left"))>b&&(b=parseInt($ezJQuery(this).css("padding-left"))),parseInt($ezJQuery(this).css("padding-right"))>b&&(b=parseInt($ezJQuery(this).css("padding-left")))}),b}function ez_scale_padding(a){$ezJQuery("td",a).each(function(){parseInt($ezJQuery(this).css("padding-left"))>1&&$ezJQuery(this).css("padding-left",parseInt($ezJQuery(this).css("padding-left"))-1),parseInt($ezJQuery(this).css("padding-right"))>1&&$ezJQuery(this).css("padding-right",parseInt($ezJQuery(this).css("padding-left"))-1)})}function ez_word_break_table(a){__ez.queue.addFunc("run_ez_word_break_table","run_ez_word_break_table",a,!1,["ezjquery"],!0,!1,!1,!1)}function ez_reset_width(a){!0===$ezJQuery(a).data("ez-no-defined-width")&&$ezJQuery(a).css("width","");var b=$ezJQuery(a).data("ezoic-orig-max-width");return null==b?$ezJQuery(a).css("max-width",""):$ezJQuery(a).css("max-width",b),1}function run_ez_word_break_tables(){$ezJQuery.each(ez_word_break_tables,function(a,b){run_ez_word_break_table(b)})}function run_ez_word_break_table(a){ez_console_log("shrinking "+a);var b=$ezJQuery("table[data-ez-uid='"+a+"']");0==b.length&&(b=$ezJQuery("#ez_script_id_"+a).prevAll("table")[0]);var c=11;if(ez_console_log("$ezJQuery(table).data('ez-gwidth')"+$ezJQuery(b).data("ez-gwidth")),null!=$ezJQuery(b).data("ez-gwidth")){1==$ezJQuery(b).data("ez-no-defined-width")&&(null!=$ezJQuery(b).get(0).style.width&&$ezJQuery(b).get(0).style.width.match(/^$|auto/)||($ezJQuery(b).removeAttr("data-ez-no-defined-width"),$ezJQuery(b).removeData("ez-no-defined-width")));var d=$ezJQuery(b).get(0).style.getPropertyValue("max-width");null!=d&&$ezJQuery(b).data("ezoic-orig-max-width",d),$ezJQuery(b).css("max-width","none");var e=$ezJQuery(b).data("ez-gwidth"),f=e;if(String(f).indexOf("%")>=0&&(ez_console_log("goal width % "+String(f)),!0,f=Math.ceil(parseInt(f)/100*$ezJQuery(b).parent()[0].clientWidth)),ez_console_log("goal width px "+String(f)),$ezJQuery(b).outerWidth()<=f)return ez_reset_width(b);var h=!0;!0===$ezJQuery(b).data("ez-no-defined-width")&&(h=!1,$ezJQuery(b).css("width",e));var i=!1,j=0,k=null,l=null;if($ezJQuery("td,th",b).each(function(){$ezJQuery(this).find("*:not(iframe)").addBack().contents().addBack().filter(function(){return 3==this.nodeType&&"script"!=this.parentNode.nodeName}).each(function(){var a=this.nodeValue.split(/[.,\/ -]/),b=a.reduce(function(a,b){return a.length>b.length?a:b}).length,c=parseInt($ezJQuery(this).parent().css("font-size"));null==k?k=c:c>k&&(k=c),null==l?l=c:c<l&&(l=c);var d=b*c*.6;d>=j&&(j=d)});$ezJQuery(this).data("ez_lpw",j),$ezJQuery(this).outerWidth()>0&&j>.65*$ezJQuery(this).outerWidth()&&(i=!0)}),0==i)return ez_reset_width(b);l>12&&(c=9),12==l?c=9:l<9&&(c=l);for(var m=parseInt($ezJQuery(b).css("border-spacing"));m>2&&$ezJQuery(b).outerWidth()>f;)m--,$ezJQuery(b).css("border-spacing",m),ez_console_log("changing border-spacing to "+m+", "+$ezJQuery(b).outerWidth());if($ezJQuery(b).outerWidth()<=f)return ez_reset_width(b);$ezJQuery(b).find("*").addBack().each(function(){$ezJQuery(this).data("ez-ofs",parseInt($ezJQuery(this).css("font-size")))});for(var n=0;k-n>c+1&&$ezJQuery(b).outerWidth()>f;){n++;var o=$ezJQuery(b).outerWidth();if(ez_console_log("scaling font increment "+n+", "+$ezJQuery(b).outerWidth()>f),ez_scale_font(b,n,c),o==$ezJQuery(b).outerWidth())break}if($ezJQuery(b).outerWidth()<=f)return ez_reset_width(b);for(var p=ez_get_max_padding(b),o=$ezJQuery(b).outerWidth();p>1&&$ezJQuery(b).outerWidth()>f;)ez_console_log("scaling padding to "+p+", "+$ezJQuery(b).outerWidth()>f),ez_scale_padding(b),p--;if($ezJQuery(b).outerWidth()<=f)return ez_reset_width(b);for(;l-n>c&&$ezJQuery(b).outerWidth()>f;){n++;var o=$ezJQuery(b).outerWidth();if(ez_console_log("scaling font increment "+n+", "+$ezJQuery(b).outerWidth()>f),ez_scale_font(b,n,c),o==$ezJQuery(b).outerWidth())return ez_reset_width(b)}if($ezJQuery(b).outerWidth()<=f)return ez_reset_width(b);for(var q=ez_get_widest_cells($ezJQuery(b));0!=q.length&&$ezJQuery(b).outerWidth()>f;){ez_console_log("adding word break to tables, "+$ezJQuery(b).outerWidth()>f);for(var r=0;r<q.length;r++){if(!0===h){var s=(100*$ezJQuery(q[r]).width()/$ezJQuery(b).outerWidth()).toFixed(4)+"%";$ezJQuery(q[r]).css("min-width",s)}$ezJQuery(q[r]).css("word-break","break-all"),$ezJQuery(q[r]).css("word-break","break-word")}q=ez_get_widest_cells(b)}return ez_reset_width(b)}}var ez_word_break_tables=[];
+</script><!-- START EZHEAD --><script data-ezscrex="false" type="text/javascript">
+var soc_app_id = '0';
+var did = 413;
+var ezdomain = 'learning-styles-online.com';
+var ezoicSearchable = 1;
+var ez_fb_action_id = 346;
+</script><!-- js/css: start --><link href="//www.learning-styles-online.com/utilcave_com/templates/combine.webp?solCombine=1&amp;dirname=learning_styles_online_com&amp;ezcb=191-5&amp;d=learning-styles-online.com&amp;css=%2Futilcave_com%2Ffont%2Ff.php%3FsolCSS%3D1%26a%3D2%26dirname%3Dlearning_styles_online_com%26ezcb%3D191-5%26d%3Dlearning-styles-online.com%26u%3DForum%7C%7Clearnig-styo.cmDvuph%2521%2B%7C%7C%7CForum%7C%7CLearnigStylsIvoOwVuAbPhcUMEdYfRTmHCN%2B" rel="stylesheet" media="screen" type="text/css"><link href="//www.learning-styles-online.com/utilcave_com/templates/combine.webp?solCombine=1&amp;dirname=learning_styles_online_com&amp;ezcb=191-5&amp;d=learning-styles-online.com&amp;css=%2Futilcave_com%2Fmiddleton%2Fcss.php%3FsolCSS%3D1%26css%3D%2Fcss%2Fcommon.ezoic.scss%26dirname%3Dlearning_styles_online_com%26ezcb%3D191-5" rel="stylesheet" media="screen" type="text/css"><link href="//www.learning-styles-online.com/utilcave_com/templates/combine.webp?solCombine=1&amp;dirname=learning_styles_online_com&amp;ezcb=191-5&amp;d=learning-styles-online.com&amp;css=%2Futilcave_com%2Fmiddleton%2Fcss.php%3FsolCSS%3D1%26css%3D%2Farticle%2Ffont%2Fcss%2Ffont-awesome.css%26ezcb%3D191-5%26tdir%3D%2Farticle%2F%26scss%3D1%26dirname%3Dlearning_styles_online_com%26did%3D413%26eztmp%3D1%26ezcss%3D1" rel="stylesheet" media="screen" type="text/css"><link href="//www.learning-styles-online.com/utilcave_com/templates/combine.webp?solCombine=1&amp;dirname=learning_styles_online_com&amp;ezcb=191-5&amp;d=learning-styles-online.com&amp;css=%2Futilcave_com%2Fmiddleton%2Fcss.php%3FsolCSS%3D1%26css%3D%2Farticle%2Fcss%2Fez-bootstrap.css%26ezcb%3D191-5%26tdir%3D%2Farticle%2F%26scss%3D1%26dirname%3Dlearning_styles_online_com%26did%3D413%26eztmp%3D1" rel="stylesheet" media="screen" type="text/css"><link href="//www.learning-styles-online.com/utilcave_com/templates/combine.webp?solCombine=1&amp;dirname=learning_styles_online_com&amp;ezcb=191-5&amp;d=learning-styles-online.com&amp;css=%2Futilcave_com%2Fmiddleton%2Fcss.php%3FsolCSS%3D1%26css%3D%2Farticle%2Fcss%2Fgrayscale_emogrify.scss%26ezcb%3D191-5%26tdir%3D%2Farticle%2F%26scss%3D1%26dirname%3Dlearning_styles_online_com%26did%3D413%26eztmp%3D1%26ezcss%3D1" rel="stylesheet" media="screen" type="text/css"><link href="//www.learning-styles-online.com/utilcave_com/templates/combine.webp?solCombine=1&amp;dirname=learning_styles_online_com&amp;ezcb=191-5&amp;d=learning-styles-online.com&amp;css=%2Futilcave_com%2Fmiddleton%2Fcss.php%3FsolCSS%3D1%26css%3D%2Farticle%2Fcss%2Fgrayscale.scss%26ezcb%3D191-5%26tdir%3D%2Farticle%2F%26scss%3D1%26dirname%3Dlearning_styles_online_com%26did%3D413%26eztmp%3D1" rel="stylesheet" media="screen" type="text/css"><!-- js/css: end --><!-- END EZHEAD --><base href="https://www.learning-styles-online.com/inventory/login.php"><meta charset="windows-1252"><!-- comment-replace-012791c9b738dbd14892f98b11b934db --><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<title>Login for the Free learning styles inventory (test, quiz or questionnaire)</title>
+<meta name="keywords" content="inventory, free, learning style, learning styles">
+<meta name="description" content="A free learning styles inventory">
+<meta http-equiv="Content-Language" content="en-us">
+<meta name="GENERATOR" content="Microsoft FrontPage 6.0">
+<meta name="ProgId" content="FrontPage.Editor.Document">
+
+
+
+
+
+<meta property="og:title" content="Login for the Free learning styles inventory (test, quiz or questionnaire)" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://www.learning-styles-online.com/inventory/login.php" /><link href='https://www.learning-styles-online.com/include/styles.css?ecb=191-5&ez_css_parse=1' rel='stylesheet' media='screen' type='text/css' />
+<!-- meta tags --><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><!-- stylesheets --><style type="text/css" datatype="ezoic-user-css">
+.ezoic-wrapper-column-1 { max-width: 364px !important; }
+.ezoic-wrapper-column-2 { max-width: 364px !important; }
+.ezoic-wrapper-content { max-width: 827px !important; }
+.ezoic-wrapper-column-1 * { max-width: 364px; }
+.ezoic-wrapper-column-2 * { max-width: 364px; }
+.ezoic-wrapper-content * { max-width: 827px; }
+.ezWidgetWrap { display: table !important; overflow: hidden !important; clear: both !important; }
+.ezoic-top-partition { max-width: none !important; clear: both !important; overflow:hidden !important; }
+.ezoic-top-partition * { max-width: none; }
+#ezmob_footer span, div.ezoic-floating-bottom span { padding: 0px !important; }
+
+#stylesheet_body { height: auto !important; width: auto !important; background-image: none !important; border: 0px solid transparent !important; }
+
+.ezoic-wrapper-content, .ezoic-wrapper-column-1, .ezoic-wrapper-column-2 { line-height: initial;color: initial;font-size: initial;font-family: initial;font-weight: initial;font-style: initial;font-variants: initial; }
+.ezoic-wrapper-content table, .ezoic-wrapper-column-1 table, .ezoic-wrapper-column-2 table { border-collapse: initial;border-spacing: initial;border-color: initial; }
+
+
+
+
+
+</style><!-- google fonts for ie --><!--[if lte IE 8]>
+<link href='//fonts.googleapis.com/css?family=Forum' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Forum' rel='stylesheet' type='text/css'>
+<![endif]--><style>.ezoic-ad{display:inline-block;}
+.ezoic-ad .ezoic-adl {border:1px #c0c0c047 solid;border-radius:6px;overflow:hidden;background:url("/utilcave_com/l.svg") no-repeat center center}.ezoic-ad .ezfound,.ezmob-footer .ezoic-ad .ezoic-ad,.ezoic-ad-adaptive > .ezoic-ad, .ezoic-ad-rl {background:0 0;border-radius:0;border:none}
+.ezoic-floating-bottom { display: none!important; }</style><link rel="amphtml" href="https://www.learning-styles-online.com/inventory/login.php?ezoic_amp=1">
+<script data-ezscrex='false' data-pagespeed-no-defer data-cfasync='false' type='text/javascript' style='display:none'>
+__ez.queue.addFile('__ezf_ezosuigeneris', '//g.ezoic.net/ezosuigeneris.js', true, [], true, false, false, false);
+var __ez_ezosuigenerisEvt = function() { if(typeof(ezosuigeneris) != 'undefined'){__ez.bit.AddAndFire(_ezaq['page_view_id'], [(new __ezDotData('universal_user_id', ezosuigeneris))]); }};
+__ez.queue.addFunc('__ez_ezosuigenerisEvt', '__ez_ezosuigenerisEvt', null, false, ['__ezf_ezosuigeneris','/detroitchicago/minneapolis.js','/detroitchicago/memphis.js'], false, false, false, false);</script><script data-ezscrex='false' data-pagespeed-no-defer data-cfasync='false' type='text/javascript' style='display:none'>__ez.queue.addFile('__ezf_ezosuigenerisc', '//g.ezoic.net/ezosuigenerisc.js?nogen=1', true, ["/detroitchicago/boise.js"], true, false, false, false);</script>
+
+<script data-ezscrex="false" data-cfasync="false" type="text/javascript">window.google_analytics_uacct = "UA-36939678-13";</script>
+<script data-ezscrex="false" data-cfasync="false" type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(function(){
+	_gat._createTracker('UA-36939678-13', 'e');
+});
+_gaq.push(function(){
+	_gat._createTracker('UA-38339005-1', 'f');
+});
+_gaq.push(['e._setDomainName', 'learning-styles-online.com']);
+_gaq.push(['f._setDomainName', 'learning-styles-online.com']);
+_gaq.push(['e._setCustomVar',1,'template','/article/grayscale',3]);
+_gaq.push(['e._setCustomVar',2,'t','30',3]);
+_gaq.push(['e._setCustomVar',3,'rid','0',2]);
+_gaq.push(['e._setCustomVar',4,'bra','mod1',3]);
+_gaq.push(['f._setSampleRate', '100']);
+_gaq.push(['e._setSampleRate', '100']);
+_gaq.push(['e._setAllowAnchor',true]);
+_gaq.push(['e._setSiteSpeedSampleRate', 10]);
+_gaq.push(['f._setCustomVar',1,'template','/article/grayscale',3]);
+_gaq.push(['f._setCustomVar',2,'domain','learning-styles-online.com',3]);
+_gaq.push(['f._setSiteSpeedSampleRate', 20]);
+_gaq.push(['e._trackPageview']);
+_gaq.push(['f._trackPageview']);
+
+
+(function() {
+ var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+ var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+</script>
+
+<script data-ezscrex='false' data-pagespeed-no-defer data-cfasync='false'>
+function create_ezolpl(pvID, rv) {
+    var d = new Date();
+    d.setTime(d.getTime() + (365*24*60*60*1000));
+    var expires = "expires="+d.toUTCString();
+    __ez.ck.setByCat("ezux_lpl_413=" + new Date().getTime() + "|" + pvID + "|" + rv + "; " + expires, 3);
+}
+function attach_ezolpl(pvID, rv) {
+    if (document.readyState === "complete") {
+        create_ezolpl(pvID, rv);
+    }
+    if(window.attachEvent) {
+        window.attachEvent("onload", create_ezolpl, pvID, rv);
+    } else {
+        if(window.onload) {
+            var curronload = window.onload;
+            var newonload = function(evt) {
+                curronload(evt);
+                create_ezolpl(pvID, rv);
+            };
+            window.onload = newonload;
+        } else {
+            window.onload = create_ezolpl.bind(null, pvID, rv);
+        }
+    }
+}
+
+__ez.queue.addFunc("attach_ezolpl", "attach_ezolpl", ["bc4a1f66-dfe8-4a69-514a-5684eebd7284", "false"], false, ['/detroitchicago/boise.js'], true, false, false, false);
+</script></head><body id="grayscale" class="ezCSS">
+  
+    <!-- Start header -->      
+    <div id="ezoic-header" class="ezCSS">
+        <div class="navbar navbar-inverse navbar-fixed-top ezCSS">
+            <div style="padding-left:0px!important;padding-right:0px!important;border-bottom-width:1px!important;" class="navbar-inner ezCSS">
+                <div style="width:1241px!important;padding-left:9px!important;padding-right:9px!important;" class="ezoic-container ezCSS">
+                    
+                    <div style="padding-left:25px!important;padding-right:25px!important;margin-left:-26px!important;" class="brand ezCSS">
+                        <div id="ezoic-logo" class="html5header ezCSS">
+    <div id="logoDiv" class="ezomat-logo-image ezCSS">
+        <a href="//learning-styles-online.com" class="ezCSS">
+            <img id="logo" src="//www.learning-styles-online.com/learning-styles.png?ecb=191-5" alt="learning-styles-online.com" border="0" class="ezCSS"></a>
+    </div>
+    <div id="logoText" class="html5hgroup ezCSS">        
+        <h1 id="siteName" class="ezomat-logo-text ezCSS">
+            <a href="//learning-styles-online.com" class="ezCSS">learning-styles-online.com</a>
+        </h1>
+    </div>
+</div>
+                    </div>
+                    <div class="clearfix ezCSS"></div>
+
+                    <!-- Start Stacked Link Navigation --->
+                    <div class="nav-collapse collapse ezCSS">
+                        <ul class="nav ezCSS" id="ez-menu-box"><li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/" class="ezCSS">Learning Styles Inventory</a></li>
+<li class="dropdown ezCSS">
+<a href="javascript:void(0)" class="dropdown-toggle ezCSS" data-toggle="ez-dropdown">Learning Styles Overview</a><ul class="dropdown-menu ezCSS"><li class="level-1 ezCSS"><a href="//www.learning-styles-online.com/overview/index.php" class="ezCSS">Learning Styles Overview</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/visual-spatial/" class="ezCSS">Visual Learning Style</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/aural-auditory-musical/" class="ezCSS">Aural Learning Style</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/verbal-linguistic/" class="ezCSS">Verbal Learning Style</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/physical-bodily-kinesthetic" class="ezCSS">Physical Learning Style</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/logical-mathematical/" class="ezCSS">Logical Learning Style</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/social-interpersonal/" class="ezCSS">Social Learning Style</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/style/solitary-intrapersonal/" class="ezCSS">Solitary Learning Style</a></li>
+</ul></li>
+<li class="dropdown ezCSS">
+<a href="javascript:void(0)" class="dropdown-toggle ezCSS" data-toggle="ez-dropdown">User Menu</a><ul class="dropdown-menu ezCSS"><li class="level-1 ezCSS"><a href="//www.learning-styles-online.com/inventory/userMenu.php" class="ezCSS">User Menu</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/questions.php" class="ezCSS">Edit Your Answers</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/userInfo.php" class="ezCSS">Edit Your Profile</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/results.php" class="ezCSS">View Your Results</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/shareStyles.php" class="ezCSS">Share Your Results</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/reset.php?parent=logout" class="ezCSS">Logout</a></li>
+</ul></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/results.php" class="ezCSS">Results Page</a></li>
+<li class="ezCSS"><a href="//www.learning-styles-online.com/inventory/testimonials.php" class="ezCSS">Testimonials</a></li>
+</ul></div>
+                    <!-- End Stacked Link Navigation -->
+
+                </div>
+            </div>
+        </div>
+    </div>         
+    <!-- End header -->
+
+    <!-- Start Content container -->
+    <div style="width:1241px!important;padding-left:9px!important;padding-right:9px!important;" class="ezoic-container ezCSS">
+
+        
+        <div style="width:1241px!important;" class="ezoic-top-partition-space ezCSS"></div>
+        <div class="ezoic-wrapper ezoic-top-partition ezCSS" style=";"></div>
+        <div style="width:1241px!important;" class="ezoic-top-partition-space ezCSS"></div>
+        
+
+        <div style="width:827px!important;" id="ezoic-content" class="ezCSS">
+            
+            <div class="ezoic-topspace ezCSS"></div>
+
+            <gcse:searchresults-only linktarget="_parent" webSearchResultSetSize="10"></gcse:searchresults-only>
+            <div class="clearfix ezCSS"></div>
+        
+            <div class="ezoic-topspace ezCSS"></div>
+            
+            <div class="clearfix ezCSS"></div>
+        
+            <div class="ezoic-wrapper ezoic-main-content ezoic-wrapper-content ezCSS" style="float:left;width:640px;;width:827px!important;">
+                <div id="stylesheet_body"><!-- wrap open --><!-- [tg:1607251274.134674][bw:1000][skipLB:1][mbw:1000][abs:0][pmrg:0,0,0,0][ppdg:0,0,0,0][paiw:][pbw:100][obw:1000px] --><div style="background: transparent; position: static; top: auto; right: auto; left: auto; bottom: auto; -webkit-box-sizing: content-box; background-color: transparent; background-origin: padding-box; background-size: auto; border-spacing: 0px 0px; clear: none; font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; font-size: 12px; font-weight: normal; line-height: 15px; list-style-image: none; list-style-position: outside; list-style-type: disc; text-indent: 0px; vertical-align: baseline; visibility: visible; word-wrap: normal; mcalc: 0px 0px 0px 0px; pcalc: 0px 0px 0px 0px; nodepath: /html/body; pagepos: 1; cwidth: 1000; cheight: 675px; wcalc_source: child; wcalc: 1000px; wocalc: 506px; hcalc: 1472px; rend_px_area: 810675; rcnt: 1; ez_min_text_wdth: 86.7; height: auto; margin: 0px 0px 0px 0px; padding: 0px 0px 0px 0px;" ezoic='wrapper' >  <!-- [tg:1607251274.127733][bw:1000][mbw:1000][abs:0][pmrg:0,0,0,0][ppdg:0,0,0,0][paiw:0][pbw:100][obw:0] --><!-- tableopen - /html/body/table --><table style="width:100%;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;widest-single-cell:1000;background-color:transparent;color:rgb(0, 0, 0);border-top-style:none;border-bottom-style:none;border-right-style:none;border-left-style:none;border-top-width:0px;border-bottom-width:0px;border-right-width:0px;border-left-width:0px;border-top-color:rgb(128, 128, 128);border-bottom-color:rgb(128, 128, 128);border-right-color:rgb(128, 128, 128);border-left-color:rgb(128, 128, 128);nodepath:/html/body/table;ez_table_text_min_width:112;wcalc:1000px;"  cellpadding="0" cellspacing="0" data-role='table' class='ez_wrap_table' ezoic='combined' data-ez-uid='1753385196' data-ez-gwidth="100%" ><tr  style='nodepath:/html/body/table/tr;display:table-row;'><td style="vertical-align:top;-webkit-box-sizing:content-box;background-color:transparent;background-origin:padding-box;background-size:auto;border-bottom-color:rgb(0, 0, 0);border-bottom-style:none;border-bottom-width:0px;border-left-color:rgb(0, 0, 0);border-left-style:none;border-left-width:0px;border-right-color:rgb(0, 0, 0);border-right-style:none;border-right-width:0px;border-spacing:0px 0px;border-top-color:rgb(0, 0, 0);border-top-style:none;border-top-width:0px;bottom:auto;clear:none;color:rgb(0, 0, 0);font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;font-size:16px;font-weight:normal;left:auto;line-height:normal;list-style-image:none;list-style-position:outside;list-style-type:disc;right:auto;text-indent:0px;top:auto;visibility:visible;word-wrap:normal;mcalc:null null null null;pcalc:0px 0px 0px 0px;nodepath:/html/body/table/tr/td[4];pagepos:51;wcalc:1000px;wocalc:358px;hcalc:1173;rend_px_area:419934;cwidth:1000;cheight:1173px;rcnt:4;ez_min_text_wdth:112;req_px_area:120981;obj_px_area:0;req_px_height:85.8;req_margin_and_padding:81;req_ns_height:;vertical_margin:0;parent-line-height:normal;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;" ><!-- tableopen - /html/body/table/tr/td[4]/table --><table style="width:100%;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;widest-single-cell:1000;background-color:transparent;color:rgb(0, 0, 0);border-top-style:none;border-bottom-style:none;border-right-style:none;border-left-style:none;border-top-width:0px;border-bottom-width:0px;border-right-width:0px;border-left-width:0px;border-top-color:rgb(17, 17, 17);border-bottom-color:rgb(17, 17, 17);border-right-color:rgb(17, 17, 17);border-left-color:rgb(17, 17, 17);nodepath:/html/body/table/tr/td[4]/table;ez_table_text_min_width:112;wcalc:1000px;"  cellpadding="3" id="AutoNumber4" data-role='table' class='ez_wrap_table' ezoic='combined' data-ez-uid='856291949' data-ez-gwidth="100%" ><tr  style='nodepath:/html/body/table/tr/td[4]/table/tr;display:table-row;'><td  style="vertical-align:middle;-webkit-box-sizing:content-box;background-color:transparent;background-origin:padding-box;background-size:auto;border-bottom-color:rgb(0, 0, 0);border-bottom-style:none;border-bottom-width:0px;border-left-color:rgb(0, 0, 0);border-left-style:none;border-left-width:0px;border-right-color:rgb(0, 0, 0);border-right-style:none;border-right-width:0px;border-spacing:2px 2px;border-top-color:rgb(0, 0, 0);border-top-style:none;border-top-width:0px;bottom:auto;clear:none;color:rgb(0, 0, 0);font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;font-size:16px;font-weight:normal;left:auto;line-height:normal;list-style-image:none;list-style-position:outside;list-style-type:disc;right:auto;text-indent:0px;top:auto;visibility:visible;word-wrap:normal;mcalc:null null null null;pcalc:4px 4px 4px 4px;nodepath:/html/body/table/tr/td[4]/table/tr/td;pagepos:54;wcalc:990px;wocalc:358px;hcalc:493;rend_px_area:176494;cwidth:992;cheight:281px;rcnt:1;ez_min_text_wdth:112;req_px_area:120981;obj_px_area:0;req_px_height:85.8;req_margin_and_padding:81;req_ns_height:;vertical_margin:0;parent-line-height:normal;margin-for-scale:0px 0px 0px 0px;padding-for-scale:4px 4px 4px 4px; padding: 4px 3px 4px 3px; "  ><h1 eza="cwidth:990px;;cheight:31px;;wcalc_source:child;wcalc:134px;wocalc:134px;hcalc:217px;rend_px_area:30690;" cwidth="990"    style="background-color:transparent;background-size:auto;color:rgb(24, 1, 124);font-size:24px;font-weight:bold;nodepath:/html/body/table/tr/td[4]/table/tr/td/h1;pagepos:55;cwidth:990px;cheight:31px;wcalc_source:child;wcalc:134px;wocalc:134px;hcalc:217;rend_px_area:30690;rcnt:1;ez_min_text_wdth:140.6;req_px_area:29265.6;obj_px_area:0;req_px_height:31.2;req_margin_and_padding:25;req_ns_height:;vertical_margin:25;parent-line-height:normal;margin-for-scale:10px 0px 15px 0px;margin:10px 0px 15px 0px;padding-for-scale:0px 0px 0px 0px;">Learning Styles Inventory - Login for existing users</h1><p eza="cwidth:982px;;cheight:36px;;wcalc_source:defined;wcalc:982px;wocalc:990px;hcalc:36px;rend_px_area:35352;" cwidth="982"     style="background-color:transparent;background-size:auto;font-size:14px;nodepath:/html/body/table/tr/td[4]/table/tr/td/p[1];pagepos:56;cwidth:982px;cheight:36px;wcalc_source:defined;wcalc:982px;wocalc:990px;hcalc:36;rend_px_area:35352;rcnt:1;ez_min_text_wdth:82;req_px_area:36036;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:16;req_ns_height:;vertical_margin:16;parent-line-height:normal;margin-for-scale:8px 0px 8px 8px;padding-for-scale:0px 0px 0px 0px; margin: 8px 0px 8px 6px; " >If you have registered already, enter your email address and password. If you have forgotton 
+    your password, enter your email address and click "Forgot password."</p><p eza="cwidth:982px;;cheight:18px;;wcalc_source:defined;wcalc:982px;wocalc:990px;hcalc:18px;rend_px_area:17676;" cwidth="982"     style="background-color:transparent;background-size:auto;font-size:14px;nodepath:/html/body/table/tr/td[4]/table/tr/td/p[2];pagepos:57;cwidth:982px;cheight:18px;wcalc_source:defined;wcalc:982px;wocalc:990px;hcalc:18;rend_px_area:17676;rcnt:1;ez_min_text_wdth:90;req_px_area:18559.8;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:16;req_ns_height:;vertical_margin:16;parent-line-height:normal;margin-for-scale:8px 0px 8px 8px;padding-for-scale:0px 0px 0px 0px; margin: 8px 0px 8px 6px; " >If you have not yet registered, <b eza="cwidth:0px;;cheight:0px;;wcalc_source:child;wcalc:107px;wocalc:107px;hcalc:72px;rend_px_area:0;" cwidth="0"    style="background-color:transparent;background-size:auto;font-weight:bold;nodepath:/html/body/table/tr/td[4]/table/tr/td/p[2]/b;pagepos:59;cwidth:107;cheight:0px;wcalc_source:child;wcalc:107px;wocalc:107px;hcalc:72;rend_px_area:0;rcnt:3;ez_min_text_wdth:81;req_px_area:7007;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;"><a href="questions.php" eza="cwidth:0px;;cheight:0px;;wcalc_source:child;wcalc:77px;wocalc:77px;hcalc:72px;rend_px_area:0;" cwidth="0"    style="background-color:transparent;background-size:auto;color:rgb(36, 49, 137);nodepath:/html/body/table/tr/td[4]/table/tr/td/p[2]/b/a;pagepos:60;cwidth:77;cheight:0px;wcalc_source:child;wcalc:77px;wocalc:77px;hcalc:72;rend_px_area:0;rcnt:1;ez_min_text_wdth:77;req_px_area:7007;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">start or continue with the questions</a></b> and you'll be 
+    able to register at the end.</p><form name="lso" method="post" action="login.php" eza="cwidth:990px;;cheight:95px;;wcalc_source:child;wcalc:350px;wocalc:350px;hcalc:111px;rend_px_area:94050;" cwidth="990"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form;pagepos:62;cwidth:990px;cheight:95px;wcalc_source:child;wcalc:350px;wocalc:350px;hcalc:111;rend_px_area:94050;rcnt:1;ez_min_text_wdth:75;req_px_area:0;obj_px_area:0;req_px_height:0;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;parent-line-height:normal;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;"><!-- tableopen - /html/body/table/tr/td[4]/table/tr/td/form/table --><table eza="cwidth:381px;;cheight:95px;;wcalc_source:child;wcalc:350px;wocalc:350px;hcalc:111px;rend_px_area:36195;" cwidth="381"     style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table;pagepos:63;cwidth:381px;cheight:95px;wcalc_source:child;wcalc:350px;wocalc:350px;hcalc:111;rend_px_area:36195;rcnt:1;req_px_area:8343.3;obj_px_area:0;req_px_height:73.2;req_margin_and_padding:14;req_ns_height:;vertical_margin:0;table_identifier:923968872;parent-line-height:normal;widest-single-cell:346;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px; ez_table_text_min_width:75; "  data-ez-uid="923968872"  data-ez-gwidth="100%"  data-ez-no-defined-width="true" >
+<tr eza="wcalc:350px;wocalc:350px;hcalc:44px;rend_px_area:15400;cwidth:381px;;cheight:28px;;" cwidth="381"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[1];pagepos:64;wcalc:350px;wocalc:350px;hcalc:44;rend_px_area:15400;cwidth:381px;cheight:28px;rcnt:1;req_px_area:3603.6;obj_px_area:0;req_px_height:20.8;req_margin_and_padding:4;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">
+<td eza="wcalc:78px;wocalc:78px;hcalc:44px;rend_px_area:3432;cwidth:107px;;cheight:26px;;" cwidth="107"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[1]/td[1];pagepos:65;wcalc:78px;wocalc:78px;hcalc:44;rend_px_area:3432;cwidth:107px;cheight:26px;rcnt:2;ez_min_text_wdth:66;req_px_area:3603.6;obj_px_area:0;req_px_height:20.8;req_margin_and_padding:2;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 1px 1px 1px;">Login (email)</td>
+          <td eza="wcalc:266px;wocalc:266px;hcalc:44px;rend_px_area:11704;cwidth:264px;;cheight:26px;;" cwidth="264"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[1]/td[2];pagepos:66;wcalc:266px;wocalc:266px;hcalc:44;rend_px_area:11704;cwidth:264px;cheight:26px;rcnt:2;ez_min_text_wdth:0;req_px_area:0;obj_px_area:0;req_px_height:0;req_margin_and_padding:4;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 1px 1px 1px;"><input type="text"  maxlength="50" name="login" value="" eza="cwidth:192px;;cheight:16px;;wcalc_source:defined;wcalc:192px;wocalc:198px;hcalc:22px;rend_px_area:3072;" cwidth="192"    style="background-color:transparent;background-size:auto;font-size:12px;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[1]/td[2]/input;pagepos:67;cwidth:196;cheight:16px;wcalc_source:defined;wcalc:192px;wocalc:198px;hcalc:22;rend_px_area:3072;rcnt:1;ez_min_text_wdth:;width:158px;req_px_area:0;obj_px_area:0;req_px_height:0;req_margin_and_padding:2;req_ns_height:;vertical_margin:0;min_scale_height:24;min_scale_width:117;max-width:100%;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 1px 1px 1px;"></td>
+        </tr>
+<tr eza="wcalc:350px;wocalc:350px;hcalc:31px;rend_px_area:10850;cwidth:381px;;cheight:31px;;" cwidth="381"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[2];pagepos:68;wcalc:350px;wocalc:350px;hcalc:31;rend_px_area:10850;cwidth:381px;cheight:31px;rcnt:1;req_px_area:2538.9;obj_px_area:0;req_px_height:20.8;req_margin_and_padding:6;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">
+<td eza="wcalc:78px;wocalc:78px;hcalc:31px;rend_px_area:2418;cwidth:107px;;cheight:29px;;" cwidth="107"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[2]/td[1];pagepos:69;wcalc:78px;wocalc:78px;hcalc:31;rend_px_area:2418;cwidth:107px;cheight:29px;rcnt:2;ez_min_text_wdth:75;req_px_area:2538.9;obj_px_area:0;req_px_height:20.8;req_margin_and_padding:2;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 1px 1px 1px;">Password</td>
+          <td eza="wcalc:266px;wocalc:266px;hcalc:31px;rend_px_area:8246;cwidth:264px;;cheight:29px;;" cwidth="264"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[2]/td[2];pagepos:70;wcalc:266px;wocalc:266px;hcalc:31;rend_px_area:8246;cwidth:264px;cheight:29px;rcnt:2;ez_min_text_wdth:0;req_px_area:0;obj_px_area:0;req_px_height:0;req_margin_and_padding:6;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 1px 1px 1px;"><input type="password"  maxlength="50" name="password" value="" eza="cwidth:256px;;cheight:21px;;wcalc_source:defined;wcalc:256px;wocalc:260px;hcalc:25px;rend_px_area:5376;" cwidth="256"     style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[2]/td[2]/input;pagepos:71;cwidth:256px;cheight:21px;wcalc_source:defined;wcalc:256px;wocalc:260px;hcalc:25;rend_px_area:5376;rcnt:1;ez_min_text_wdth:;width:211px;req_px_area:0;obj_px_area:0;req_px_height:0;req_margin_and_padding:4;req_ns_height:;vertical_margin:0;min_scale_height:27;min_scale_width:102;max-width:100%;margin-for-scale:0px 0px 0px 0px;padding-for-scale:2px 2px 2px 2px; padding: 2px 1px 2px 1px; " ></td>
+        </tr>
+<tr eza="wcalc:350px;wocalc:350px;hcalc:28px;rend_px_area:9800;cwidth:381px;;cheight:28px;;" cwidth="381"     class="ez_blank_row "   style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[3];pagepos:72;wcalc:350px;wocalc:350px;hcalc:28;rend_px_area:9800;cwidth:381px;cheight:28px;rcnt:1;req_px_area:2200.8;obj_px_area:0;req_px_height:31.6;req_margin_and_padding:4;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">
+<td colspan="2" eza="wcalc:346px;wocalc:346px;hcalc:28px;rend_px_area:9688;cwidth:375px;;cheight:26px;;" cwidth="375"    style="background-color:transparent;background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[3]/td;pagepos:73;wcalc:346px;wocalc:346px;hcalc:28;rend_px_area:9688;cwidth:375px;cheight:26px;rcnt:1;ez_min_text_wdth:75;req_px_area:2200.8;obj_px_area:0;req_px_height:31.6;req_margin_and_padding:4;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 1px 1px 1px;">
+<!-- INFOLINKS_OFF --><input type="submit" value="Login" name="btnLogin" eza="cwidth:32px;;cheight:16px;;wcalc_source:defined;wcalc:32px;wocalc:48px;hcalc:22px;rend_px_area:512;" cwidth="32"      style="background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[3]/td/input[1];pagepos:74;cwidth:36;cheight:16px;wcalc_source:defined;wcalc:32px;wocalc:48px;hcalc:22;rend_px_area:512;is_btn:yes;rcnt:3;ez_min_text_wdth:36;req_px_area:537.6;obj_px_area:0;req_px_height:31.6;req_margin_and_padding:2;req_ns_height:;vertical_margin:0;min_scale_width:36;scale_line_ht:normal;max-width:100%;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 6px 1px 6px; padding: 0px 4px 0px 4px; white-space:normal; "  ><!-- INFOLINKS_ON -->&nbsp;&nbsp;
+          <!-- INFOLINKS_OFF --><input type="submit" value="Forgot Password" name="btnForgotPassword" eza="cwidth:99px;;cheight:16px;;wcalc_source:defined;wcalc:99px;wocalc:115px;hcalc:22px;rend_px_area:1584;" cwidth="99"      style="background-size:auto;nodepath:/html/body/table/tr/td[4]/table/tr/td/form/table/tr[3]/td/input[2];pagepos:76;cwidth:103;cheight:16px;wcalc_source:defined;wcalc:99px;wocalc:115px;hcalc:22;rend_px_area:1584;is_btn:yes;rcnt:3;ez_min_text_wdth:58;req_px_area:1663.2;obj_px_area:0;req_px_height:31.6;req_margin_and_padding:2;req_ns_height:;vertical_margin:0;min_scale_width:103;do_not_scale_ht:1;scale_line_ht:normal;max-width:100%;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 6px 1px 6px; padding: 0px 4px 0px 4px; white-space:normal; "  ><!-- INFOLINKS_ON -->
+</td>
+        </tr>
+</table>
+<!-- tableclose - /html/body/table/tr/td[4]/table/tr/td/form/table --><script id="ez_script_id_923968872">
+        <!--
+        ez_word_break_table("923968872");
+        // -->
+        </script></form><p eza="cwidth:982px;;cheight:36px;;wcalc_source:defined;wcalc:982px;wocalc:990px;hcalc:36px;rend_px_area:35352;" cwidth="982"     style="background-color:transparent;background-size:auto;font-size:14px;nodepath:/html/body/table/tr/td[4]/table/tr/td/p[3];pagepos:78;cwidth:982px;cheight:36px;wcalc_source:defined;wcalc:982px;wocalc:990px;hcalc:36;rend_px_area:35352;rcnt:1;ez_min_text_wdth:98;req_px_area:37119.6;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:16;req_ns_height:;vertical_margin:16;parent-line-height:normal;margin-for-scale:8px 0px 8px 8px;padding-for-scale:0px 0px 0px 0px; margin: 8px 0px 8px 6px; " ><b eza="cwidth:0px;;cheight:0px;;wcalc_source:child;wcalc:41px;wocalc:41px;hcalc:72px;rend_px_area:0;" cwidth="0"    style="background-color:transparent;background-size:auto;font-weight:bold;nodepath:/html/body/table/tr/td[4]/table/tr/td/p[3]/b;pagepos:79;cwidth:41;cheight:0px;wcalc_source:child;wcalc:41px;wocalc:41px;hcalc:72;rend_px_area:0;rcnt:4;ez_min_text_wdth:41;req_px_area:4477.2;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">Can't start the test?</b> If you are having difficulties starting the test, it may be 
+    because someone has used this machine previously. Click to <a href="reset.php" eza="cwidth:0px;;cheight:0px;;wcalc_source:child;wcalc:81px;wocalc:81px;hcalc:54px;rend_px_area:0;" cwidth="0"    style="background-color:transparent;background-size:auto;color:rgb(36, 49, 137);nodepath:/html/body/table/tr/td[4]/table/tr/td/p[3]/a;pagepos:81;cwidth:81;cheight:0px;wcalc_source:child;wcalc:81px;wocalc:81px;hcalc:54;rend_px_area:0;rcnt:4;ez_min_text_wdth:74;req_px_area:5896.8;obj_px_area:0;req_px_height:18.2;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">reset anonymous 
+    cookies</a> (previous answers, if not saved, will be lost).</p></td></tr></table><!-- tableclose - /html/body/table/tr/td[4]/table --><script id="ez_script_id_856291949">
+                <!--
+                ez_word_break_table("856291949");
+                // -->
+                </script></td></tr></table><!-- tableclose - /html/body/table --><script id="ez_script_id_1753385196">
+                <!--
+                ez_word_break_table("1753385196");
+                // -->
+                </script><!-- [tg:1607251274.127698][bw:286][mbw:286][abs:0][pmrg:0,0,0,0][ppdg:0,0,0,0][paiw:0][pbw:100][obw:1201] --><div class="bottext bold top_border" eza="cwidth:1201px;;cheight:0px;;wcalc_source:child;wcalc:123px;wocalc:123px;hcalc:146px;rend_px_area:0;" cwidth="1201"    style="background-color:transparent;background-size:auto;border-top-color:rgb(51, 51, 51);border-top-style:none;border-top-width:0px;color:rgb(103, 141, 204);font-size:11px;font-weight:bold;nodepath:/html/body/div[2];pagepos:85;cwidth:1201px;cheight:0px;wcalc_source:child;wcalc:286px;wocalc:123px;hcalc:146;rend_px_area:0;rcnt:1;ez_min_text_wdth:85;req_px_area:6174;obj_px_area:0;req_px_height:15;req_margin_and_padding:21;req_ns_height:;vertical_margin:0;parent-line-height:15px;margin-for-scale:0px 0px 0px 0px;padding-for-scale:1px 0px 0px 0px;padding-top:1px;">
+	<p class="left" eza="cwidth:246px;;cheight:15px;;wcalc_source:defined;wcalc:246px;wocalc:286px;hcalc:15px;rend_px_area:3690;" cwidth="246"    style="background-color:transparent;background-size:auto;float:left;font-size:10px;nodepath:/html/body/div[2]/p[1];pagepos:86;cwidth:246px;cheight:15px;wcalc_source:defined;wcalc:246px;wocalc:286px;hcalc:15;rend_px_area:3690;rcnt:2;ez_min_text_wdth:77;req_px_area:3874.5;obj_px_area:0;req_px_height:15px;req_margin_and_padding:20;req_ns_height:;vertical_margin:20;margin-for-scale:10px 20px 10px 20px;margin:10px 20px 10px 20px;padding-for-scale:0px 0px 0px 0px;">
+		© Advanogy.com 2020 - All rights reserved.
+	</p>
+	<p class="right" eza="cwidth:146px;;cheight:15px;;wcalc_source:defined;wcalc:146px;wocalc:186px;hcalc:15px;rend_px_area:2190;" cwidth="146"    style="background-color:transparent;background-size:auto;float:right;font-size:10px;nodepath:/html/body/div[2]/p[2];pagepos:87;cwidth:146px;cheight:15px;wcalc_source:defined;wcalc:146px;wocalc:186px;hcalc:15;rend_px_area:2190;rcnt:2;ez_min_text_wdth:52;req_px_area:2299.5;obj_px_area:0;req_px_height:15;req_margin_and_padding:20;req_ns_height:;vertical_margin:20;margin-for-scale:10px 20px 10px 20px;margin:10px 20px 10px 20px;padding-for-scale:0px 0px 0px 0px;">
+		<a class="bottextlink" href="/about/legal.php" eza="cwidth:0px;;cheight:0px;;wcalc_source:child;wcalc:35px;wocalc:35px;hcalc:45px;rend_px_area:0;" cwidth="0"    style="background-color:transparent;background-size:auto;nodepath:/html/body/div[2]/p[2]/a[1];pagepos:88;cwidth:35;cheight:0px;wcalc_source:child;wcalc:35px;wocalc:35px;hcalc:45;rend_px_area:0;rcnt:3;ez_min_text_wdth:33;req_px_area:1575;obj_px_area:0;req_px_height:15px;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">Terms of Use</a> | 
+		<a class="bottextlink" href="/about/contact.php" eza="cwidth:0px;;cheight:0px;;wcalc_source:child;wcalc:43px;wocalc:43px;hcalc:30px;rend_px_area:0;" cwidth="0"    style="background-color:transparent;background-size:auto;nodepath:/html/body/div[2]/p[2]/a[2];pagepos:90;cwidth:43;cheight:0px;wcalc_source:child;wcalc:43px;wocalc:43px;hcalc:30;rend_px_area:0;rcnt:3;ez_min_text_wdth:43;req_px_area:1290;obj_px_area:0;req_px_height:15px;req_margin_and_padding:0;req_ns_height:;vertical_margin:0;margin-for-scale:0px 0px 0px 0px;padding-for-scale:0px 0px 0px 0px;">Contact Us</a>
+	</p>
+</div></div><!-- wrap close --></div><div class="ezoic-sticky-cutoff"></div><!-- end stylesheet_body -->
+            </div>
+            
+        </div>
+
+        <div style="width:388px!important;" id="ez-contentSecondary" class="ezSidebar ezCSS">
+
+            
+
+            <!-- Search  -->
+            
+            <!--INFOLINKS_OFF-->
+            <div id="ez-search" class="ezCSS">
+                <div class="ez-google-box ezCSS">
+                    <script>var loadCseCallback=function(){var r=document.querySelector('.gsc-placeholder-table');r.parentNode.removeChild(r);document.getElementById("gsc-i-id1").focus()};window.__gcse={callback:loadCseCallback};function loadCSE(i){var cx='partner-pub-6644558441501035:5242163312';var gcse=document.createElement('script');gcse.type='text/javascript';gcse.async=true;gcse.src=(document.location.protocol=='https:'?'https:':'http:')+'//cse.google.com/cse.js?cx='+cx;var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(gcse,s)}</script>
+<div class="gsc-placeholder-table"><div class="" id=""><div class="gsc-control-cse gsc-control-cse-en"><div class="gsc-control-wrapper-cse" dir="ltr"><form class="gsc-search-box gsc-search-box-tools" accept-charset="utf-8"><table cellspacing="0" cellpadding="0" class="gsc-search-box"><tbody><tr><td class="gsc-input"><div class="gsc-input-box " id="" style="vertical-align:middle"><table cellspacing="0" cellpadding="0" id="" class="" style="width: 100%; padding: 0px;height:100%; vertical-align:middle"><tbody><tr><td id="" class="gsib_a" style="vertical-align:middle"> <input onfocus="loadCSE(this);" type="text" class="gsc-input" name="search" title="search" style="text-indent: 48px;padding:0px!important;width: 100%; vertical-align:middle; font-size:14px; padding: 0px; border: none; margin: 0px; height: auto; outline: none;background:url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAC4AAAAQCAQAAADDwIVhAAAB7klEQVR4AdWUA7BWURSF+5Ft27Zt27ZtW4Ns29aX7Rpl1yDbrrvbc6Zn+73LhXvWPY4U8Q9i0pQtnGUTdYgZwLIOSlEYu092Hm7wgwOs4RACAQyPwWm2EdV7MxaPuEZBoimORlHKBTA8OodY51N4L/5QxlvHqQVtrsymzOnOjUI0j+HYiInNY8QJzhPHoITkIbc5YxGXRYieL2lhvBaKBEvVuMoycxzhK6d4TwHQcAcNzRdf6Ok+/BqHcZr/9kPM+ZXK7OIvrSnBfISaeoqiEqr8VScG57lDdapwGaEo+1hJcSxWkJ3ZCB3cwjdyi1QGxSMLmSiM0J8vTP/vv2CDni/+s+nqdEIjDauHUETDF7FM9Roc4A/nKO0WXgahh9tUYhAvacY3Rv3n99ip573/bJQ6/REyGFYBy4QvZD3CDzaQ0dM8VUuYQFFT63EIU01nPSE/SeiI0E1PUZRElSdcJQ2P2ElGfW/6X/Pl1EGYSQwyM4MCHmfqEP7yg1f8QhhoRj4zd7B4gjAPh57zEGWWqpnUrc4P3vKaFwhFOckOojAC4SkfeU4ur+usPO2oSBQPK681qVx5KmWlcPxn0WhIOdogZCSRnjbVUtKSykHfLLaxgmQkZzevgn8vqs9rPvCe51QK/nAb8SlEERL6/M0/SoB55gUBIU8AAAAASUVORK5CYII=') 0% 100% no-repeat rgb(255, 255, 255);" x-webkit-speech="" x-webkit-grammar="builtin:search" lang="en" dir="ltr" spellcheck="false" placeholder="Custom Search"></td></tr></tbody></table></div></td><td class="gsc-search-button"> <input type="image" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA0AAAANCAYAAABy6+R8AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RDU0NDVDNjI0MUE4MTFFMTk3OURDRDgxOTNEMUU3NTYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjlFQzUyODQ0MUIyMTFFMTk3OURDRDgxOTNEMUU3NTYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpENTQ0NUM2MDQxQTgxMUUxOTc5RENEODE5M0QxRTc1NiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpENTQ0NUM2MTQxQTgxMUUxOTc5RENEODE5M0QxRTc1NiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PuhQNCgAAABuSURBVHjaYmCAgv///zcA8fv/CABiNzDgAkDJ8/9xg/PYNDQgmRyAJB6AZHMDuiaYRAAWAwNgBqJLgAEep2PIMzGQAUCaPsCcgs15UOYHqgSEAJYgf4/GL8DlYayRC9KAM77wASSX0Ffje4AAAwDkqAbz4euqrgAAAABJRU5ErkJggg==" class="gsc-search-button gsc-search-button-v2" title="search"></td></tr></tbody></table></form></div></div></div></div><span id='ezgce'><gcse:searchbox-only resultsUrl="/ez-site-search/"></gcse:searchbox-only></span>
+                </div>
+            </div>
+            <!--INFOLINKS_ON-->
+            
+            <!-- End Search  -->
+
+            <table style="border-right-width:1px!important;border-top-width:1px!important;border-bottom-width:1px!important;" class="table table-bordered ez-social ez-side-table ezCSS"><thead class="ezCSS"><tr class="ezCSS"><th style="padding-left:10px!important;padding-right:10px!important;border-left-width:1px!important;border-top-width:0px!important;" class="ezCSS">Share</th>
+                    </tr></thead><tbody class="ezCSS"><tr class="ezCSS"><td style="padding-left:10px!important;padding-right:10px!important;border-left-width:1px!important;border-top-width:1px!important;" class="ezCSS">
+                            <div style="padding-left:42px!important;" class="ez-social-box ezCSS">
+                                <div class="fb-like ezCSS" data-send="false" data-show-faces="false" data-layout="box_count"></div> 
+                            </div>
+                            <div style="padding-left:42px!important;" class="ez-social-box ezCSS">
+                                <div class="ezCSS"><a href="https://twitter.com/share" class="twitter-share-button ezCSS" data-lang="en" data-count="vertical">Tweet</a></div>
+                            </div>
+                        </td>
+                    </tr></tbody></table><table style="border-right-width:1px!important;border-top-width:1px!important;border-bottom-width:1px!important;" class="table table-bordered ez-side-table ezCSS"><thead class="ezCSS"><tr class="ezCSS"><th style="padding-left:10px!important;padding-right:10px!important;border-left-width:1px!important;border-top-width:0px!important;" class="ezCSS">Popular Pages</th>
+                    </tr></thead><tbody class="ezCSS"><tr class="ezCSS"><td style="padding-left:0px!important;padding-right:0px!important;border-left-width:1px!important;border-top-width:1px!important;" id="ez-popular" class="ezCSS">
+                            <ul class='popular-list ezCSS'><li class='popular-item ezCSS'><a href='//learning-styles-online.com' class='ezCSS'>Home</a></li></ul>
+                        </td>
+                    </tr></tbody></table><div class="ezWidgetWrap" style="padding: 15px 0px;"></div><div class="ezWidgetWrap" style="padding: 15px 0px;"><div class='ez-sticky-wrapper'><div id='ez-sticky-ad-1'></div></div></div><!-- close ezSidebar --></div>
+
+        <div class="clearfix ezCSS"></div>
+
+        <br class="ezCSS">
+        
+        
+        
+        <p style="width:60%;" class="ezCSS">
+            <input type="hidden" name="IL_RELATED_TAGS" value="1" class="ezCSS"></p>
+        
+        <hr class="ezCSS"><div id="ezoic-footer" class="ezCSS">
+            <div id="footer-menu-links" class="ezCSS">
+                <ul class="ezoic-secondary-nav ezCSS"><li class="ezCSS"><a href="//www.learning-styles-online.com/about/contact.php" class="ezCSS">CONTACT US</a></li><li class="ezCSS"><a href="/privacy.html" class="ezCSS">Privacy Policy</a></li></ul></div>
+        </div>
+
+    </div>
+    <!-- END Content container -->
+
+<!-- start: Java Script -->
+<!-- Placed at the end of the document so the pages load faster -->
+    <!--[if lt IE 9]>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+<!--[if (gte IE 9) | (!IE)]><!-->
+    <script>__ez.queue.addFile('jquery', '//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js', true, [], true, false, false, false);</script>
+<!--<![endif]-->
+<script>
+var __ez_jquery = function() {
+jQuery.cookie=function(name,value,options){if(typeof value!='undefined'){options=options||{};if(value===null){value='';options.expires=-1}var expires='';if(options.expires&&(typeof options.expires=='number'||options.expires.toUTCString)){var date;if(typeof options.expires=='number'){date=new Date();date.setTime(date.getTime()+(options.expires*24*60*60*1000))}else{date=options.expires}expires='; expires='+date.toUTCString()}var path=options.path?'; path='+(options.path):'';var domain=options.domain?'; domain='+(options.domain):'';var secure=options.secure?'; secure':'';document.cookie=[name,'=',encodeURIComponent(value),expires,path,domain,secure].join('')}else{var cookieValue=null;if(document.cookie&&document.cookie!=''){var cookies=document.cookie.split(';');for(var i=0;i<cookies.length;i++){var cookie=cookies[i].trim();if(cookie.substring(0,name.length+1)==(name+'=')){cookieValue=decodeURIComponent(cookie.substring(name.length+1));break}}}return cookieValue}};
+if(typeof window.$ezJQuery=='undefined'){window.$ezJQuery=jQuery.noConflict(true);}
+};
+__ez.queue.addFunc('ezjquery', '__ez_jquery', null, true, ['jquery'], false, false, false, false);
+</script>
+<script class="ezCSS">__ez.queue.addFile('tempJS_0', '//www.learning-styles-online.com/utilcave_com/templates/combine.webp?dirname=learning_styles_online_com&ezcb=191-5&d=//www.learning-styles-online.com/utilcave_com&js=%2Futilcave_com%2Fmiddleton%2Fjs.php%3Fjs%3D%2Farticle%2Fjs%2Fgrayscale_bootstrap.js%26ezcb%3D191-5', false, ['ezjquery'], true, false, false, false);</script><!-- end: Java Script -->
+<!-- START EZFOOT -->
+<!-- END EZFOOT -->
+<script data-ezscrex='false' type='text/javascript' data-cfasync="false">
+__ez.queue.addFile('edmonton.php', '//www.learning-styles-online.com/detroitchicago/edmonton.webp?dirname=learning_styles_online_com&cb=191-5', true, ['/detroitchicago/minneapolis.js'], true, false, false);
+__ez.queue.addFile('jellyfish.php', '//www.learning-styles-online.com/porpoiseant/jellyfish.webp?dirname=learning_styles_online_com&cb=191-5', false, [], true, false, false);
+__ez.queue.addFile('seattle.js', '//www.learning-styles-online.com/detroitchicago/seattle.js?cb=191-5-1', false, [], true, false, false);
+__ez.queue.addFile('livonia.php', '//www.learning-styles-online.com/detroitchicago/livonia.webp?dirname=learning_styles_online_com&cb=191-5', false, ['ezjquery', 'jass.head.js'], true, false, false, false);
+__ez.queue.addFile('fire.php', '//www.learning-styles-online.com/porpoiseant/fire.webp?dirname=learning_styles_online_com&cb=191-5', false, ['ezjquery', 'jass.head.js'], true, false, false, false);
+var __ez_Run_PBLoad=function(){$ezJQuery(function(){if(typeof run_body_onload=='function'){run_body_onload()}if(typeof ezoicJSPageLoad=='function'){ezoicJSPageLoad($ezJQuery)}})};
+__ez.queue.addFunc('__ez_Run_PBLoad', '__ez_Run_PBLoad', null, false, ['ezjquery'], false, false, false, false);
+</script>
+
+<script type="application/ld+json">
+{
+   "@context": "http://schema.org",
+   "@type": "WebSite",
+   "url": "//www.learning-styles-online.com",
+   "potentialAction": {
+     "@type": "SearchAction",
+     "target": "//www.learning-styles-online.com/ez-site-search/?q={search_term_string}",
+     "query-input": "required name=search_term_string"
+   }
+}
+</script>
+<script id="jass-data" class="jass-script" type="text/javascript">var __ez_Run_JASS_DATA=function(){window.__JASS_DATA={"ffId":1,"dim":[]};};__ez.queue.addFunc("__ez_Run_JASS_DATA","__ez_Run_JASS_DATA",null,false,["jass.head.js"],false,false,false,false);</script><script id="jass-tail-entry-point" class="jass-script" type="text/javascript">__ez.queue.addFile("jass.tail.js", "//www.learning-styles-online.com/jass/jass.tail.js?cb=85", false, ["ezjquery", "jass.head.js"], true, false, false, false);</script>
+<script type="text/javascript" language="javascript">
+function __ezDrInit(){$ezJQuery(function($ezJQuery){$ezJQuery('body').ezoicDoctor({widgets:[],debugOutput:0,widgetBaseURL:'//www.learning-styles-online.com/utilcave_com/dr/',dn:'learning_styles_online_com',cb:'191-5'})})}
+__ez.queue.addFile('drloader.js', '//www.learning-styles-online.com/utilcave_com/dr/drloader.js?dirname=learning_styles_online_com&191-5', true, ['ezjquery', 'jass.head.js'], true, false, false, false);
+__ez.queue.addFunc('__ezDrInit', '__ezDrInit', null, false, ['drloader.js'], false, false, false, false);
+</script><script type="text/javascript">
+				var __inScopeForCCPA = false;
+		function __uspapi(command, version, callback) {
+			var response = null;
+			var successs = false;
+			if (command === "getUSPData" && version === 1) {
+				var uspString = "1"; // Version
+				if (__inScopeForCCPA) {
+					uspString += "N"; // Has Explicit Notice for Opt Out been provided (ex footer or minor consent modal)
+					var result;
+					var consentCookie = (result = new RegExp('(?:^|; )ezoccpaconsent=([^;]*)').exec(document.cookie)) ? (result[1]) : null;
+					if (consentCookie === "nonconsent") {
+						uspString += "Y";
+					}
+					else {
+						uspString += "N";
+					}
+					uspString += "N" // Is pub a signatory to the IAB Limited Service Provider Agreement (http://www.iabprivacy.com/)
+				}
+				else {
+					uspString += "---";
+				}
+				response = {
+					uspString: uspString,
+					version: 1
+				};
+				success = true;
+			}
+			return callback(response, success);
+		};
+		function __receiveUspapiMessage(event) {
+			if (event.data.hasOwnProperty('__uspapiCall')) {
+				__uspapi('getUSPData', 1, function(uspData, success) {
+					event.source.postMessage({
+						__uspapiReturn: {
+							returnValue: uspData,
+							success: success,
+							callId: event.data.__uspapiCall.callId
+						}
+					},
+					event.origin);
+				});
+			}
+			return null;
+		};
+		window.addEventListener("message", __receiveUspapiMessage, false);
+</script>
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+		<script>
+		   (adsbygoogle = window.adsbygoogle || []).push({
+				google_ad_client: "ca-pub-6644558441501035",
+				enable_page_level_ads: false
+		   });
+		</script>
+
+		<script type="text/javascript">
+		(function(f,a){function g(b,a,c){b.addEventListener?b.addEventListener(a,c):b.attachEvent("on"+a,function(){c.call(b)})}function k(b){b&&("string"==typeof b["class"]&&b["class"]&&a.getElementById("uglipop_popbox").setAttribute("class",b["class"]),b.keepLayout&&!b["class"]&&a.getElementById("uglipop_popbox").setAttribute("style","position:relative;height:300px;width:300px;background-color:white;opacity:1;"),"string"==typeof b.content&&b.content&&"html"==b.source&&(a.getElementById("uglipop_popbox").innerHTML=b.content),"string"==typeof b.content&&b.content&&"div"==b.source&&(a.getElementById("uglipop_popbox").innerHTML=a.getElementById(b.content).innerHTML));a.getElementById("uglipop_overlay_wrapper").style.display="";a.getElementById("uglipop_overlay").style.display="";a.getElementById("uglipop_content_fixed").style.display=""}function h(){a.getElementById("uglipop_overlay_wrapper").style.display="none";a.getElementById("uglipop_overlay").style.display="none";a.getElementById("uglipop_content_fixed").style.display="none"}g(a,"DOMContentLoaded",function(){var b=a.createElement("div"),e=a.createElement("div"),c=a.createElement("div"),d=a.createElement("div");e.id="uglipop_content_fixed";e.setAttribute("style","position:fixed;top: 50%;left: 50%;transform: translate(-50%, -50%);-webkit-transform: translate(-50%, -50%);-ms-transform: translate(-50%, -50%);opacity:1;z-index:10000000;");c.id="uglipop_popbox";d.id="uglipop_overlay_wrapper";d.setAttribute("style","position:absolute;top:0;bottom:0;left:0;right:0;display:none");b.id="uglipop_overlay";b.setAttribute("style","position:fixed;top:0;bottom:0;left:0;right:0;opacity:0.3;width:100%;height:100%;background-color:black;");d.appendChild(b);e.appendChild(c);a.body.appendChild(d);a.body.appendChild(e);a.getElementById("uglipop_overlay_wrapper").style.display="none";a.getElementById("uglipop_overlay").style.display="none";a.getElementById("uglipop_content_fixed").style.display="none";d.addEventListener("click",h);g(f,"keydown",function(a){27==a.keyCode&&h()});f.uglipop=k})})(window,document);
+			var ezRBA = (function() {
+			  function init() {
+				var reportAdsBtns = document.querySelectorAll('.ez-report-ad-button');
+				for (var i = 0; i < reportAdsBtns.length; i++) {
+				  reportAdsBtns[i].addEventListener('click', function(e) {
+					var url = '<iframe src="https://svc.ezoic.com/pub/reportads/reportads.html' + e.target.getAttribute('name') + '" width="400" height="500" style="border-radius: 10px; box-shadow: 2px 2px 30px 6px rgba(0,0,0,0.75); border: 1px solid black;"></iframe>'
+					uglipop({
+					  class: 'none',
+					  source: 'html',
+					  content: url,
+					});
+				  });
+				}
+				function bindEvent(element, eventName, eventHandler) {
+					if (element.addEventListener) {
+						element.addEventListener(eventName, eventHandler, false);
+					} else if (element.attachEvent) {
+						element.attachEvent('on' + eventName, eventHandler);
+					}
+				}
+				bindEvent(window, 'message', function(e) {
+					if (e.data === 'close-report-ad-modal') {
+						document.getElementById('uglipop_overlay_wrapper').style.display = 'none';	
+						document.getElementById('uglipop_overlay').style.display = 'none';	
+						document.getElementById('uglipop_content_fixed').style.display = 'none';	
+					}
+				})
+			  }
+
+			  return {
+				init: init
+			  };
+			})();
+			ezRBA.init();
+		</script>
+<script type='text/javascript' data-cfasync='false'>(function(){var addListeners=function(eltype,els){for(var en=0;en<els.length;en++){var el=els[en];if(el.complete==false||(typeof(el.readyState)!='undefined'&&el.readyState<4)){var src=el.getAttribute('src')||el.currentSrc;if(typeof(el.readyState)!='undefined'&&el.readyState==0){el.addEventListener('loadstart',function(e){var src=e.getAttribute('src')||e.currentSrc;window["ezorqs"](e,src);});}else{var src=el.getAttribute('src')||el.currentSrc;window["ezorqs"](el,src);}
+el.addEventListener('load',function(e){var src=e.currentTarget.getAttribute('src')||e.srcElement.currentSrc;window["ezorqe"](e,src);});el.addEventListener('loadeddata',function(e){var src=e.currentTarget.getAttribute('src')||e.srcElement.currentSrc;window["ezorqe"](e,src);});el.addEventListener('error',function(e){var src=e.currentTarget.getAttribute('src')||e.srcElement.currentSrc;window["ezorqe"](e,src);});}}};var CssLoadedListeners=function(els){for(var en=0;en<els.length;en++){var el=els[en];if((el.getAttribute('rel')=='preload'||el.getAttribute('rel')=='stylesheet')&&el.getAttribute('href')!=null){if(isStyleSheetLoaded(el.getAttribute('href'))){window["ezorqs"](el,el.getAttribute('href'));var img=document.createElement('img');img.onerror=function(e){if(typeof e.path!="undefined"&&typeof e.path[0].currentSrc!="undefined"){window["ezorqe"](el,e.path[0].currentSrc);}else if(typeof e.srcElement!="undefined"&&typeof e.srcElement.href!="undefined"){window["ezorqe"](el,e.srcElement.href);}};img.src=el.getAttribute('href');}else{}}else{}}};function isStyleSheetLoaded(url){for(var i=0;i<document.styleSheets.length;i++){if(document.styleSheets[i].href==url){return true}}
+return false;}
+__ez_addAllListeners=function(){addListeners('img',document.querySelectorAll('img'));addListeners('video',document.querySelectorAll('video'));addListeners('audio',document.querySelectorAll('audio'));CssLoadedListeners(document.querySelectorAll('link'));if(typeof window["__ez"]["ssaf"]!="undefined"&&window["__ez"]["ssaf"].indexOf(16)>-1){if(typeof window["__ez"]["sshsdef"]!=="undefined"&&window["__ez"]["sshsdef"]===false){if(Element.prototype.addEventListener){if(typeof window["onload"]=="function"){window["addEventListener"]("load",window["onload"]);window["onload"]=null;}
+if(typeof document["onload"]=="function"){document["addEventListener"].addEventListener("load",document["onload"]);document["onload"]=null;}}}}}
+__ez.queue.addFunc("__ez_addAllListeners","__ez_addAllListeners",null,false,['/detroitchicago/tulsa.js'],true,true,true,true);}());</script>
+<script>var _audins_dom="learning_styles_online_com",_audins_did=413;__ez.queue.addDelayFunc("audins.js","__ez.script.add", "//go.ezoic.net/detroitchicago/audins.js?cb=191-5");</script><noscript><div style="display:none;"><img src="//pixel.quantserve.com/pixel/p-31iz6hfFutd16.gif?labels=Domain.learning_styles_online_com,DomainId.413" border="0" height="1" width="1" alt="Quantcast"/></div></noscript><noscript><img src="https://sb.scorecardresearch.com/p?c1=2&c2=20015427&cv=2.0&cj=1"/></noscript></body></html>
+<!-- solab: mod1 --><!-- css_domain: //www.learning-styles-online.com/utilcave_com --><!-- forced dynamic: config --><!-- page invalidation: true --><!--the phantom was here ()--><!--display: dynamic page (page was dynamic)--><!--mc hash: mclph-6d2d45e3cfab37fa25cbe82f41b3d58b-2890994567-191-5: setting to 1 : was: --><!--scale NOT memcache--><!--scale NOT memcache--><!-- template: /article/grayscale --><!-- server: 127.0.0.1--><!-- middleton version: -->

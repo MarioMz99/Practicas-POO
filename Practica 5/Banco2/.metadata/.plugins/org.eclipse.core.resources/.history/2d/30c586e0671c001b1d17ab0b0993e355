@@ -1,0 +1,9 @@
+package paquete1;
+
+public class User {
+	
+	public static void cuentasPreD(General [] BK) {
+		BK[0] = new General("Edgar", 1445, 12, 12.5);
+	}
+
+}

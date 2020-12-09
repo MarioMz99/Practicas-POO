@@ -1,0 +1,9 @@
+package paquete1;
+
+public class User {
+	
+	public static void cuentasPreD(General [] BK) {
+		System.out.println("Hola mundo");
+	}
+
+}
